@@ -28,18 +28,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         recyclerView = binding.recyclerView
-        recyclerView.hasFixedSize()
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.apply {
+            hasFixedSize()
+            layoutManager = LinearLayoutManager(this@MainActivity)
+        }
 
         movies = ArrayList()
         requestQueue = Volley.newRequestQueue(this)
 
         getMovies()
-
-/*        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = MovieAdapter(movies, this@MainActivity)
-        }*/
     }
 
     private fun getMovies() {
@@ -60,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                         movie.posterUrl = posterUrl
                         movies.add(movie)
                     }
-                    movieAdapter = MovieAdapter(movies, this@MainActivity )
+                    movieAdapter = MovieAdapter(movies, this@MainActivity)
                     recyclerView.adapter = movieAdapter
                 } catch (e: JSONException) {
                     e.printStackTrace()
